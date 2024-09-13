@@ -1,33 +1,33 @@
-#include "mod/MyMod.h"
+#include "IronElevator.h"
 
 #include <memory>
 
 #include "ll/api/mod/RegisterHelper.h"
 
-namespace my_mod {
+namespace iron_elevator {
 
-static std::unique_ptr<MyMod> instance;
+static std::unique_ptr<IronElevator> instance;
 
-MyMod& MyMod::getInstance() { return *instance; }
+IronElevator& IronElevator::getInstance() { return *instance; }
 
-bool MyMod::load() {
+bool IronElevator::load() {
     getSelf().getLogger().debug("Loading...");
     // Code for loading the mod goes here.
     return true;
 }
 
-bool MyMod::enable() {
+bool IronElevator::enable() {
     getSelf().getLogger().debug("Enabling...");
     // Code for enabling the mod goes here.
     return true;
 }
 
-bool MyMod::disable() {
+bool IronElevator::disable() {
     getSelf().getLogger().debug("Disabling...");
     // Code for disabling the mod goes here.
     return true;
 }
 
-} // namespace my_mod
+} // namespace iron_elevator
 
-LL_REGISTER_MOD(my_mod::MyMod, my_mod::instance);
+LL_REGISTER_MOD(iron_elevator::IronElevator, iron_elevator::instance);
