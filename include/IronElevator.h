@@ -1,20 +1,28 @@
 #pragma once
 
+#include "ll/api/event/ListenerBase.h"
 #include "ll/api/mod/NativeMod.h"
+#include "ll/api/event/EventBus.h"
+#include "ll/api/Config.h"
+
+#include <Config.h>
+#include <mc/world/level/block/Block.h>
 
 namespace iron_elevator {
+
+Config config;
 
 class IronElevator {
 
 public:
     static IronElevator& getInstance();
 
-    IronElevator(ll::mod::NativeMod& self) : mSelf(self) {}
+    explicit IronElevator(ll::mod::NativeMod& self) : mSelf(self) {}
 
     [[nodiscard]] ll::mod::NativeMod& getSelf() const { return mSelf; }
 
     /// @return True if the mod is loaded successfully.
-    bool load();
+    [[nodiscard]] bool load() const;
 
     /// @return True if the mod is enabled successfully.
     bool enable();
@@ -22,12 +30,11 @@ public:
     /// @return True if the mod is disabled successfully.
     bool disable();
 
-    // TODO: Implement this method if you need to unload the mod.
-    // /// @return True if the mod is unloaded successfully.
-    // bool unload();
-
 private:
     ll::mod::NativeMod& mSelf;
+
+    ll::event::ListenerPtr mPlayerJumpEventListener;
+    ll::event::ListenerPtr mPlayerSneakEventListener;
 };
 
 } // namespace iron_elevator
