@@ -44,8 +44,14 @@ bool IronElevator::enable() {
         if (block.getTypeName() == config.ElevatorBlock) {
             for (int i = config.minElevatorDistance; i <= config.maxElevatorDistance; i++) {
                 if (blockSource.getBlock(blockPos.add({0, i})).getTypeName() == config.ElevatorBlock) {
-                    player.teleport(player.getFeetPos().add(Vec3(0, i, 0)), player.getDimension().getDimensionId());
-                    return;
+                    if (!config.checkTeleportPointSafety
+                        || !(
+                            blockSource.getBlock(blockPos.add({0, i + 1})).isSolid()
+                            || blockSource.getBlock(blockPos.add({0, i + 2})).isSolid()
+                        )) {
+                        player.teleport(player.getFeetPos().add(Vec3(0, i, 0)), player.getDimension().getDimensionId());
+                        return;
+                    }
                 }
             }
         }
@@ -61,8 +67,17 @@ bool IronElevator::enable() {
         if (block.getTypeName() == config.ElevatorBlock) {
             for (int i = config.minElevatorDistance; i <= config.maxElevatorDistance; i++) {
                 if (blockSource.getBlock(blockPos.add({0, -i})).getTypeName() == config.ElevatorBlock) {
-                    player.teleport(player.getFeetPos().add(Vec3(0, -i, 0)), player.getDimension().getDimensionId());
-                    return;
+                    if (!config.checkTeleportPointSafety
+                        || !(
+                            blockSource.getBlock(blockPos.add({0, i + 1})).isSolid()
+                            || blockSource.getBlock(blockPos.add({0, i + 2})).isSolid()
+                        )) {
+                        player.teleport(
+                            player.getFeetPos().add(Vec3(0, -i, 0)),
+                            player.getDimension().getDimensionId()
+                        );
+                        return;
+                    }
                 }
             }
         }

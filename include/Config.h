@@ -2,10 +2,11 @@
 #define CONFIG_H
 
 struct Config {
-  int  version          = 1;
-  std::string ElevatorBlock = "minecraft:iron_block";
-  int minElevatorDistance = 3;
-  int maxElevatorDistance = 27;
+    int         version                  = 2;
+    std::string ElevatorBlock            = "minecraft:iron_block";
+    int         minElevatorDistance      = 3;
+    int         maxElevatorDistance      = 27;
+    bool        checkTeleportPointSafety = true;
 };
 
-#endif //CONFIG_H
+#endif // CONFIG_H
